@@ -26,10 +26,11 @@ public class PagerFragment extends Fragment {
     public static final int NUM_PAGES = 9;
     public int currentItem;
     public ViewPager mPagerHandler;
-    public boolean isRtl;
     private myPageAdapter mPagerAdapter;
     private MainScreenFragment[] viewFragments = new MainScreenFragment[NUM_PAGES];
+    public boolean isRtl;
 
+    // Fragment inflated into the MainActivity container view
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -58,19 +59,27 @@ public class PagerFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     *     Adapter for the ViewPager above.
+      */
+
     private class myPageAdapter extends FragmentStatePagerAdapter {
+
+        // Constructor
+        public myPageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        // Returns fragment item at position i
         @Override
         public Fragment getItem(int i) {
             return viewFragments[i];
         }
 
+        // Returns the number of pages in the viewFragment array
         @Override
         public int getCount() {
-            return NUM_PAGES;
-        }
-
-        public myPageAdapter(FragmentManager fm) {
-            super(fm);
+            return viewFragments.length;
         }
 
         // Returns the page title for the top indicator
@@ -84,6 +93,7 @@ public class PagerFragment extends Fragment {
 
         }
 
+        // Returns the day name of the given date
         public String getDayName(Context context, long dateInMillis) {
             // If the date is today, return the localized version of "Today" instead of the actual
             // day name.
@@ -108,6 +118,7 @@ public class PagerFragment extends Fragment {
         }
     }
 
+    // Checks if the phone is in a RTL-reading locale after checking build version
     public boolean checkIfRtl() {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         Configuration config = getResources().getConfiguration();

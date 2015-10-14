@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dip"
-    android:background="@drawable/myshape">
 
-    <TextView
-        android:id="@+id/update"
-        style="@android:style/TextAppearance.Medium"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/widget_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="4dip"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Static Text"></TextView>
+        android:gravity="center"
+        android:loopViews="true" />
 
-</LinearLayout>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/widget_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:text="@string/widget_empty_view"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</FrameLayout>

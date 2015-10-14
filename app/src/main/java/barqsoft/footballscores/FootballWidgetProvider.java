@@ -8,8 +8,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import barqsoft.footballscores.service.FootballWidgetService;
 
 public class FootballWidgetProvider extends AppWidgetProvider {
 
@@ -19,30 +22,35 @@ public class FootballWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
 
-        // Get all ids
-        ComponentName thisWidget = new ComponentName(context,
-                FootballWidgetProvider.class);
-        int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-        for (int widgetId : allWidgetIds) {
-            // create some random data
-            int number = (new Random().nextInt(100));
+        // update each of the app widgets with the remote adapter
+        for (int i = 0; i < appWidgetIds.length; ++i) {
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.widget_layout);
-            Log.w("WidgetExample", String.valueOf(number));
-            // Set the text
-            remoteViews.setTextViewText(R.id.update, String.valueOf(number));
+            // Set up the intent that starts the StackViewService, which will
+            // provide the views for this collection.
+            Intent intent = new Intent(context, FootballWidgetService.class);
+            // Add the app widget ID to the intent extras.
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+            // Instantiate the RemoteViews object for the app widget layout.
+            RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+            // Set up the RemoteViews object to use a RemoteViews adapter.
+            // This adapter connects
+            // to a RemoteViewsService  through the specified intent.
+            // This is how you populate the data.
+            rv.setRemoteAdapter(appWidgetIds[i], R.id.widget_list_view, intent);
 
-            // Register an onClickListener
-            Intent intent = new Intent(context, FootballWidgetProvider.class);
+            // The empty view is displayed when the collection has no items.
+            // It should be in the same layout used to instantiate the RemoteViews
+            // object above.
+            rv.setEmptyView(R.id.widget_list_view, R.id.widget_empty_view);
 
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+            //
+            // Do additional processing specific to this app widget...
+            //
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.update, pendingIntent);
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
+
     }
 }

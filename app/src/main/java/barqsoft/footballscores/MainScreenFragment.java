@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import barqsoft.footballscores.service.FootballFetchService;
 
@@ -41,13 +42,13 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
                              final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // Activate FootballFetchService to get JSON data
-        updateScores();
-
         // Set ScoresAdapter onto the ListView in fragment_main
         final ListView scoreList = (ListView) rootView.findViewById(R.id.scores_list);
+        TextView emptyView = (TextView) rootView.findViewById(R.id.scores_list_empty_view);
+        scoreList.setEmptyView(emptyView);
         mScoresAdapter = new ScoresAdapter(getActivity(), null, 0);
         scoreList.setAdapter(mScoresAdapter);
+
         // Initialize the cursor loader to work with the ScoresAdapter (CursorAdapter)
         getLoaderManager().initLoader(SCORES_LOADER, null, this);
 

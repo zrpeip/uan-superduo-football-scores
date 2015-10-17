@@ -23,6 +23,7 @@ import java.util.TimeZone;
 import java.util.Vector;
 
 import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.PagerFragment;
 import barqsoft.footballscores.R;
 
 /**
@@ -30,6 +31,7 @@ import barqsoft.footballscores.R;
  */
 public class FootballFetchService extends IntentService {
     public static final String LOG_TAG = "FootballFetchService";
+    final int NUM_PAGES = PagerFragment.NUM_PAGES;
 
     public FootballFetchService() {
         super("FootballFetchService");
@@ -38,8 +40,12 @@ public class FootballFetchService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         // timeFrame arguments for getData: n stands for "next X days" and p for "previous X days"
-        getData("n9");
-        getData("p9");
+
+        String nextMatches = "n" + Integer.toString(NUM_PAGES);
+        String previousMatches = "p" + Integer.toString(NUM_PAGES);
+
+        getData(nextMatches);
+        getData(previousMatches);
 
         return;
     }
@@ -52,7 +58,7 @@ public class FootballFetchService extends IntentService {
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        // Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
+        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
         HttpURLConnection m_connection = null;
         BufferedReader reader = null;
         String JSON_data = null;
@@ -184,6 +190,7 @@ public class FootballFetchService extends IntentService {
                         League.equals(SERIE_A) ||
                         League.equals(BUNDESLIGA1) ||
                         League.equals(BUNDESLIGA2) ||
+                        League.equals(SEGUNDA_DIVISION) ||
                         League.equals(PRIMERA_DIVISION)) {
                     match_id = match_data.getJSONObject(LINKS).getJSONObject(SELF).
                             getString("href");
@@ -221,6 +228,7 @@ public class FootballFetchService extends IntentService {
                     Home_goals = match_data.getJSONObject(RESULT).getString(HOME_GOALS);
                     Away_goals = match_data.getJSONObject(RESULT).getString(AWAY_GOALS);
                     match_day = match_data.getString(MATCH_DAY);
+
                     ContentValues match_values = new ContentValues();
                     match_values.put(DatabaseContract.scores_table.MATCH_ID, match_id);
                     match_values.put(DatabaseContract.scores_table.DATE_COL, mDate);
@@ -250,7 +258,7 @@ public class FootballFetchService extends IntentService {
             inserted_data = mContext.getContentResolver().bulkInsert(
                     DatabaseContract.BASE_CONTENT_URI, insert_data);
 
-            //Log.v(LOG_TAG,"Succesfully Inserted : " + String.valueOf(inserted_data));
+            Log.v(LOG_TAG,"Succesfully Inserted : " + String.valueOf(inserted_data));
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage());
         }

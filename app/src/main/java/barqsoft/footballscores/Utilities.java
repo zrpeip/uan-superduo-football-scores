@@ -95,4 +95,12 @@ public class Utilities {
     public static int inversePositionForRTL(int position, int total) {
         return total - position - 1;
     }
+
+    public static String getFriendlyDate(String date){
+        String[] months = {null, "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"};
+        int monthNumber = Integer.parseInt(date.substring(5, 7));
+        return months[monthNumber] + date.substring(8);
+
+    }
 }

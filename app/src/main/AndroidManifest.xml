@@ -36,6 +36,7 @@
         </activity>
 
         <service android:name=".service.FootballFetchService" />
+
         <service android:name=".service.FootballWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 

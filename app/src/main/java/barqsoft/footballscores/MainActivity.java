@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import barqsoft.footballscores.service.FootballFetchService;
+
 public class MainActivity extends ActionBarActivity
 {
     public static int selected_match_id;
@@ -24,7 +26,14 @@ public class MainActivity extends ActionBarActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, pagerFragment)
                     .commit();
+            // Activate FootballFetchService to get JSON data
+            updateScores();
         }
+    }
+
+    private void updateScores() {
+        Intent service_start = new Intent(this, FootballFetchService.class);
+        this.startService(service_start);
     }
 
 

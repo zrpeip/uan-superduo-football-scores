@@ -100,7 +100,7 @@ public class Utilities {
         String[] months = {null, "January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"};
         int monthNumber = Integer.parseInt(date.substring(5, 7));
-        return months[monthNumber] + date.substring(8);
+        return months[monthNumber] + " " + date.substring(8);
 
     }
 }

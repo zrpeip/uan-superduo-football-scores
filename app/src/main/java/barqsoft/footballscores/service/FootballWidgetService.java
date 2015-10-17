@@ -17,8 +17,7 @@ import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilities;
 
 /**
- * Created by meg on 14.10.15.
- * next step: straight from service! https://laaptu.wordpress.com/2013/07/24/populate-appwidget-listview-with-remote-datadata-from-web/
+ *
  */
 public class FootballWidgetService extends RemoteViewsService {
 
@@ -93,8 +92,11 @@ class ScoreViewsFactory implements
             }
             Log.d(LOG_TAG, "matchList.size(): " + matchList.size());
             for (String s : matchList.get(0)) {
-                Log.d(LOG_TAG, "Match 0 in matchList: " + s);
+              Log.d(LOG_TAG, "Match 0 in matchList: " + s);
             }
+            cursor.close();
+        } else {
+            Log.d(LOG_TAG, "Widget cursor null!");
         }
     }
 

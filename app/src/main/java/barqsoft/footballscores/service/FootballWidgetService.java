@@ -17,7 +17,7 @@ import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilities;
 
 /**
- *
+ * Service that manages the collection widget's RemoteViewsFactory.
  */
 public class FootballWidgetService extends RemoteViewsService {
     @Override
@@ -33,6 +33,11 @@ public class FootballWidgetService extends RemoteViewsService {
 
 }
 
+/**
+ * ViewFactory that populates the collection widget's ListView with each view.
+ * At position 0, there is a simple header describing the widget, and beyond that a similar
+ * view to that found within the Football Scores application itself.
+ */
 class ScoreViewsFactory implements
         RemoteViewsService.RemoteViewsFactory {
     private static final int NUM_RESULTS =30;
@@ -59,20 +64,21 @@ class ScoreViewsFactory implements
 
     }
 
+    /**
+     * Accesses database and populates a String array with each matches' details.
+     * Each of those String arrays are then added to the ArrayList "matchList" which is used to
+     * populate the RemoteViews in getViewAt().
+     */
     @Override
     public void onCreate() {
-        // In onCreate() you setup any connections / cursors to your data source. Heavy lifting,
-        // for example downloading or creating content etc, should be deferred to onDataSetChanged()
-        // or getViewAt(). Taking more than 20 seconds in this call will result in an ANR.
-
         numPages = PagerFragment.NUM_PAGES;
-        Log.d(LOG_TAG, "in OnCreate ");
+        // Log.d(LOG_TAG, "in OnCreate ");
 
         Cursor cursor = mContext.getContentResolver().query(DatabaseContract.BASE_CONTENT_URI,
                 null, null, null, null);
 
         if (cursor != null) {
-            Log.d(LOG_TAG, "Cursor results: " + cursor.getCount());
+            // Log.d(LOG_TAG, "Cursor results: " + cursor.getCount());
 
             matchList = new ArrayList<>();
             int i = 0;
@@ -103,6 +109,10 @@ class ScoreViewsFactory implements
         }
     }
 
+    /**
+     * Populates each ListView item in the collection widget, using the matches in the ArrayList
+     * "matchList." The first View acts as a simple header to identify the hosting app.
+     */
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews rv;
@@ -142,6 +152,10 @@ class ScoreViewsFactory implements
         return null;
     }
 
+    /**
+     * Returns the ViewTypeCount for the Factory.
+     * 2 View types - widget_list_header (at position 0) and widget_list_item (> position 0)
+     */
     @Override
     public int getViewTypeCount() {
         return 2;

@@ -27,7 +27,7 @@ import barqsoft.footballscores.PagerFragment;
 import barqsoft.footballscores.R;
 
 /**
- * Created by yehya khaled on 3/2/2015.
+ * Service that accesses the football data API and adds those results to a database.
  */
 public class FootballFetchService extends IntentService {
     public static final String LOG_TAG = "FootballFetchService";

@@ -1,8 +1,12 @@
 package barqsoft.footballscores;
 
+import android.content.Context;
 import android.os.Build;
+import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.text.SimpleDateFormat;
 
 /**
  * Created by yehya khaled on 3/3/2015.

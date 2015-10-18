@@ -14,6 +14,12 @@ import android.widget.RemoteViews;
 
 import barqsoft.footballscores.service.FootballWidgetService;
 
+/**
+ * Manages the Football Scores app widget, a collection widget that displays the scores
+ * of matches 1 week before and 1 week after the current date.
+ * Calls to the FootballWidgetService and its ScoreViewsFactory to populate the ListView of the
+ * widget_layout XML file.
+ */
 public class FootballWidgetProvider extends AppWidgetProvider {
 
     private static final String ACTION_CLICK = "ACTION_CLICK";

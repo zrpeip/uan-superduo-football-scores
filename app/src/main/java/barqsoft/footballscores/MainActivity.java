@@ -9,6 +9,11 @@ import android.view.MenuItem;
 
 import barqsoft.footballscores.service.FootballFetchService;
 
+/**
+ * Main activity of the Football Scores app.
+ * Calls the FootballFetchService for accessing the API, manages the PagerFragment (ViewPager)
+ * and manages the ActionBar.
+ */
 public class MainActivity extends ActionBarActivity
 {
     public static int selected_match_id;

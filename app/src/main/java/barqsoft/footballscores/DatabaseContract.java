@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * Created by yehya khaled on 2/25/2015.
+ * SQLite database structure
  */
 public class DatabaseContract
 {

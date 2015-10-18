@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- * Created by yehya khaled on 3/3/2015.
+ * Various helper methods and constants.
  */
 public class Utilities {
     public static final int BUNDESLIGA        = 394;
@@ -106,5 +107,29 @@ public class Utilities {
         int monthNumber = Integer.parseInt(date.substring(5, 7));
         return months[monthNumber] + " " + date.substring(8);
 
+    }
+
+    public static String[] getRecentAndUpcomingMatchDates(){
+        // This method looks one week before and one week ahead to get matches
+        int twoWeeks = 14;
+        String[] dates = new String[twoWeeks];
+        Time t = new Time();
+        t.setToNow();
+        int currentJulianDay = Time.getJulianDay(System.currentTimeMillis(), t.gmtoff);
+        for(int i = 0; i < twoWeeks; i++) {
+            Date d = new Date(System.currentTimeMillis() + ((i - 7) * 86400000));
+            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = mformat.format(d);
+            dates[i] = date;
+        }
+
+        return dates;
+    }
+
+    public static String getTodaysDate(int offset){
+        Date d = new Date(System.currentTimeMillis() + (offset * 86400000));
+        SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = mformat.format(d);
+        return date;
     }
 }

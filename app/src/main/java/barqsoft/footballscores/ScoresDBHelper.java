@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import barqsoft.footballscores.DatabaseContract.scores_table;
 
 /**
- * Created by yehya khaled on 2/25/2015.
+ * Scores database helper for managing the SQLite database for the football matches found in the API.
  */
 public class ScoresDBHelper extends SQLiteOpenHelper
 {

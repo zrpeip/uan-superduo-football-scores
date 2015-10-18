@@ -23,7 +23,7 @@ import java.util.Date;
  * Fragment that holds and manages the ViewPager fragments and the PagerTabStrip.
  */
 public class PagerFragment extends Fragment {
-    public static final int NUM_PAGES = 7;
+    public static final int NUM_PAGES = 9;
     public int currentItem;
     public ViewPager mPagerHandler;
     private MyPageAdapter mPagerAdapter;

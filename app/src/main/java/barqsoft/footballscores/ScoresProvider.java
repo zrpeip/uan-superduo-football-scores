@@ -10,7 +10,8 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * Created by yehya khaled on 2/25/2015.
+ * Content Provider for managing the SQLite database, which holds the match information
+ * from the API.
  */
 public class ScoresProvider extends ContentProvider {
     private static ScoresDBHelper mOpenHelper;
@@ -19,6 +20,7 @@ public class ScoresProvider extends ContentProvider {
     private static final int MATCHES_WITH_LEAGUE = 101;
     private static final int MATCHES_WITH_ID = 102;
     private static final int MATCHES_WITH_DATE = 103;
+    private static final int MATCHES_WITHIN_RANGE = 104;
     private UriMatcher muriMatcher = buildUriMatcher();
     private static final SQLiteQueryBuilder ScoreQuery =
             new SQLiteQueryBuilder();

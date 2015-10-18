@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by yehya khaled on 2/26/2015.
+ * ViewHolder pattern class for the Scores items in the ListViews of MainScreenFragment.
  */
 public class ViewHolder
 {

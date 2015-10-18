@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
+/**
+ * Describes the Football Scores app and credits the author and any resources used.
+ */
 public class AboutActivity extends ActionBarActivity {
 
     @Override

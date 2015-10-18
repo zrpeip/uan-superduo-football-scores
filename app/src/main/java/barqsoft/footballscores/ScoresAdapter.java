@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * Created by yehya khaled on 2/26/2015.
+ * CursorAdapter used to populate the ListView score items from data in the database.
+ * Also manages the click behavior of each ListView item - on clicking an item, a Share button
+ * is inflated into the FrameLayout at the bottom of the scores_list_item XML layout.
  */
 public class ScoresAdapter extends CursorAdapter {
     public static final int COL_HOME = 3;

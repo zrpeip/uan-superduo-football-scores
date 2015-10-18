@@ -33,7 +33,7 @@
 
         During the off season, fake data will be added to the app.
     </string>
-    <string name="widget_header_text">Football Scores - Recent and Upcoming Matches</string>
+    <string name="widget_header_text">Football Scores</string>
     <string name="widget_empty_view">No data</string>
     <string name="list_empty_view">No matches found!</string>
     <string name="api_key" translatable="false">3f369ec095a740df863e730db2ea2f1e</string>

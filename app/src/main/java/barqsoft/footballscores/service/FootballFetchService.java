@@ -41,11 +41,11 @@ public class FootballFetchService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         // timeFrame arguments for getData: n stands for "next X days" and p for "previous X days"
 
-        String nextMatches = "n" + Integer.toString(NUM_PAGES);
         String previousMatches = "p" + Integer.toString(NUM_PAGES);
+        String nextMatches = "n" + Integer.toString(NUM_PAGES);
 
-        getData(nextMatches);
         getData(previousMatches);
+        getData(nextMatches);
 
         return;
     }

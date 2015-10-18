@@ -20,7 +20,6 @@ import barqsoft.footballscores.Utilities;
  *
  */
 public class FootballWidgetService extends RemoteViewsService {
-
     @Override
     public ScoreViewsFactory onGetViewFactory(Intent intent) {
         return (new ScoreViewsFactory(this.getApplicationContext(),
@@ -31,10 +30,12 @@ public class FootballWidgetService extends RemoteViewsService {
     public IBinder onBind(Intent intent) {
         return super.onBind(intent);
     }
+
 }
 
 class ScoreViewsFactory implements
         RemoteViewsService.RemoteViewsFactory {
+    private static final int NUM_RESULTS =30;
     private String LOG_TAG = "R V FACTORY";
     private int numPages;
     private int mAppWidgetId;
@@ -76,16 +77,18 @@ class ScoreViewsFactory implements
             matchList = new ArrayList<>();
             int i = 0;
             cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
+            while (i < NUM_RESULTS) {
                 String[] match = new String[4];
                 match[0] = cursor.getString(COL_HOME);
                 match[1] = cursor.getString(COL_AWAY);
                 if (cursor.getString(COL_HOME_GOALS).equals("-1")) {
                     match[2] = " - : - ";
                 } else {
-                    match[2] = cursor.getString(COL_HOME_GOALS) + " : " + cursor.getString(COL_AWAY_GOALS);
+                    match[2] = cursor.getString(COL_HOME_GOALS) +
+                            " : " + cursor.getString(COL_AWAY_GOALS);
                 }
-                match[3] = Utilities.getFriendlyDate(cursor.getString(COL_DATE)) + " at " + cursor.getString(COL_MATCHTIME);
+                match[3] = Utilities.getFriendlyDate(cursor.getString(COL_DATE)) +
+                        " at " + cursor.getString(COL_MATCHTIME);
                 matchList.add(match);
                 i++;
                 cursor.moveToNext();
@@ -102,23 +105,26 @@ class ScoreViewsFactory implements
 
     @Override
     public RemoteViews getViewAt(int position) {
-        // Construct a remote views item based on the app widget item XML file,
-        // and set the text based on the position.
-        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
-        String[] match = matchList.get(position);
+        RemoteViews rv;
+        if(position == 0) {
+            rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_header);
+        } else {
+            // Construct a remote views item based on the app widget item XML file,
+            // and set the text based on the position.
+            rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
+            String[] match = matchList.get(position - 1);
 
-        rv.setTextViewText(R.id.widget_home_name, match[0]);
-        rv.setTextViewText(R.id.widget_away_name, match[1]);
-        rv.setTextViewText(R.id.widget_score_textview, match[2]);
-        rv.setTextViewText(R.id.widget_data_textview, match[3]);
+            rv.setTextViewText(R.id.widget_home_name, match[0]);
+            rv.setTextViewText(R.id.widget_away_name, match[1]);
+            rv.setTextViewText(R.id.widget_score_textview, match[2]);
+            rv.setTextViewText(R.id.widget_data_textview, match[3]);
+        }
         return rv;
     }
 
     @Override
     public void onDataSetChanged() {
-        Log.d(LOG_TAG, "in onDataSetChanged()");
-        // Intent service_start = new Intent(mContext, FootballFetchService.class);
-        // mContext.startService(service_start);
+        // Log.d(LOG_TAG, "in onDataSetChanged()");
     }
 
     @Override
@@ -138,7 +144,7 @@ class ScoreViewsFactory implements
 
     @Override
     public int getViewTypeCount() {
-        return 1;
+        return 2;
     }
 
     @Override

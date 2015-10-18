@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="@android:color/black"
                 android:text="home"
                 android:textSize="@dimen/TeamNames" />
         </LinearLayout>
@@ -38,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@android:color/black"
                 android:gravity="center"
                 android:text="score"
                 android:textSize="@dimen/Score" />
@@ -46,6 +48,7 @@
                 android:id="@+id/widget_data_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="date" />
@@ -64,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="@android:color/black"
                 android:text="away"
                 android:textSize="@dimen/TeamNames"
                 android:paddingBottom="5dp"/>

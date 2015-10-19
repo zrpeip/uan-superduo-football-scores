@@ -27,13 +27,24 @@
         During the off season, fake data will be added to the app.
     </string>
 
-    <!-- League names (team names are in an array in the array XML file) -->
+    <!-- League names and team names-->
+    <string name="no_league_found">League unknown. Please report.</string>
     <string name="champions_league">UEFA Champions League</string>
     <string name="bundesliga">Bundesliga</string>
     <string name="premier_league">Premier League</string>
     <string name="primera_divison">Primera Division</string>
     <string name="seria_a">Seria A</string>
-    <string name="no_league_found">League unknown. Please report.</string>
+
+    <string name="arsenal_london_fc">Arsenal London FC</string>
+    <string name="manchester_united_fc">Manchester United FC"</string>
+    <string name="swansea_city">Swansea City"</string>
+    <string name="leicester_city">Leicester City</string>
+    <string name="everton_fc">Everton FC</string>
+    <string name="west_ham_united_fc">West Ham United FC</string>
+    <string name="tottenham_hotspur_fc">Tottenham Hotspur FC</string>
+    <string name="west_bromwich_albion">West Bromwich Albion</string>
+    <string name="sunderland_afc">Sunderland AFC</string>
+    <string name="stoke_city_fc">Stoke City FC</string>
 
 
 

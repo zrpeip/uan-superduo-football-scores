@@ -1,6 +1,7 @@
 package barqsoft.footballscores.service;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.FootballWidgetProvider;
+import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.PagerFragment;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilities;
@@ -163,14 +165,22 @@ class ScoreViewsFactory implements
     public RemoteViews getViewAt(int position) {
         RemoteViews rv;
 
-        Intent fillInIntent = new Intent();
+        Intent launchIntent = new Intent();
+
+//        Intent launchIntent = new Intent("android.intent.action.MAIN");
+//        launchIntent.addCategory("android.intent.category.LAUNCHER");
+//
+//        launchIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        launchIntent.setComponent(new ComponentName("barqsoft.footballscores",
+//                "MainActivity"));
+
         Bundle extras = new Bundle();
         extras.putInt(FootballWidgetProvider.EXTRA_ITEM, position);
-        fillInIntent.putExtras(extras);
+        launchIntent.putExtras(extras);
 
         if (position == 0) {
             rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_header);
-            rv.setOnClickFillInIntent(R.id.widget_list_header_linearlayout, fillInIntent);
+            rv.setOnClickFillInIntent(R.id.widget_list_header_linearlayout, launchIntent);
         } else {
             // Construct a remote views item based on the app widget item XML file,
             // and set the text for each TextView..
@@ -184,7 +194,7 @@ class ScoreViewsFactory implements
 
             // Make it possible to distinguish the individual on-click
             // action of a given item
-            rv.setOnClickFillInIntent(R.id.widget_list_item_linearlayout, fillInIntent);
+            rv.setOnClickFillInIntent(R.id.widget_list_item_linearlayout, launchIntent);
 
 
         }

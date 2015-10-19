@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -12,6 +13,7 @@ import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 
 import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.FootballWidgetProvider;
 import barqsoft.footballscores.PagerFragment;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilities;
@@ -161,8 +163,14 @@ class ScoreViewsFactory implements
     public RemoteViews getViewAt(int position) {
         RemoteViews rv;
 
+        Intent fillInIntent = new Intent();
+        Bundle extras = new Bundle();
+        extras.putInt(FootballWidgetProvider.EXTRA_ITEM, position);
+        fillInIntent.putExtras(extras);
+
         if (position == 0) {
             rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_header);
+            rv.setOnClickFillInIntent(R.id.widget_list_header_linearlayout, fillInIntent);
         } else {
             // Construct a remote views item based on the app widget item XML file,
             // and set the text for each TextView..
@@ -173,6 +181,11 @@ class ScoreViewsFactory implements
             rv.setTextViewText(R.id.widget_away_name, match[1]);
             rv.setTextViewText(R.id.widget_score_textview, match[2]);
             rv.setTextViewText(R.id.widget_data_textview, match[3]);
+
+            // Make it possible to distinguish the individual on-click
+            // action of a given item
+            rv.setOnClickFillInIntent(R.id.widget_list_item_linearlayout, fillInIntent);
+
 
         }
         return rv;

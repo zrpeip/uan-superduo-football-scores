@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import barqsoft.footballscores.service.FootballWidgetService;
 
@@ -22,7 +23,8 @@ import barqsoft.footballscores.service.FootballWidgetService;
  */
 public class FootballWidgetProvider extends AppWidgetProvider {
 
-    private static final String ACTION_CLICK = "ACTION_CLICK";
+    public static final String ACTION_CLICK = "ACTION_CLICK";
+    public static final String EXTRA_ITEM = "EXTRA_ITEM";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -50,13 +52,36 @@ public class FootballWidgetProvider extends AppWidgetProvider {
             // object above.
             rv.setEmptyView(R.id.widget_list_view, R.id.widget_empty_view);
 
-            //
-            // Do additional processing specific to this app widget...
-            //
+            // This section makes it possible for items to have individualized behavior.
+            // It does this by setting up a pending intent template. Individuals items of a collection
+            // cannot set up their own pending intents. Instead, the collection as a whole sets
+            // up a pending intent template, and the individual items set a fillInIntent
+            // to create unique behavior on an item-by-item basis.
+            Intent toastIntent = new Intent(context, FootballWidgetProvider.class);
+            // Set the action for the intent.
+            // When the user touches a particular view, it will have the effect of
+            // broadcasting TOAST_ACTION.
+            toastIntent.setAction(FootballWidgetProvider.ACTION_CLICK);
+            toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+            PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            rv.setPendingIntentTemplate(R.id.widget_list_view, toastPendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        if (intent.getAction().equals(ACTION_CLICK)) {
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
+            Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+        }
+        super.onReceive(context, intent);
     }
 }

@@ -1,6 +1,7 @@
 package barqsoft.footballscores;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.text.format.Time;
 import android.view.View;
@@ -24,37 +25,39 @@ public class Utilities {
     public static final int CHAMPIONS_LEAGUE  = 405;
 
     public static String getLeague(int league_num) {
+        Resources res = Resources.getSystem();
         switch (league_num) {
             case SERIE_A:
-                return "Seria A";
+                return res.getString(R.string.seria_a);
             case PREMIER_LEAGUE:
-                return "Premier League";
+                return res.getString(R.string.premier_league);
             case CHAMPIONS_LEAGUE:
-                return "UEFA Champions League";
+                return res.getString(R.string.champions_league);
             case PRIMERA_DIVISION:
-                return "Primera Division";
+                return res.getString(R.string.primera_divison);
             case BUNDESLIGA:
-                return "Bundesliga";
+                return res.getString(R.string.bundesliga);
             default:
-                return "Not known League Please report";
+                return res.getString(R.string.no_league_found);
         }
     }
 
     public static String getMatchDay(int match_day, int league_num) {
+        Resources res = Resources.getSystem();
         if (league_num == CHAMPIONS_LEAGUE) {
             if (match_day <= 6) {
-                return "Group Stages, Matchday : 6";
+                return res.getString(R.string.group_stage_text);
             } else if (match_day == 7 || match_day == 8) {
-                return "First Knockout round";
+                return res.getString(R.string.first_knockout_round);
             } else if (match_day == 9 || match_day == 10) {
-                return "QuarterFinal";
+                return res.getString(R.string.quarter_final);
             } else if (match_day == 11 || match_day == 12) {
-                return "SemiFinal";
+                return res.getString(R.string.semi_final);
             } else {
-                return "Final";
+                return res.getString(R.string.final_text);
             }
         } else {
-            return "Matchday : " + String.valueOf(match_day);
+            return res.getString(R.string.matchday_text) + ": " + String.valueOf(match_day);
         }
     }
 
@@ -69,7 +72,7 @@ public class Utilities {
     public static int getTeamCrestByTeamName(String teamname) {
         if (teamname == null) {
             return R.drawable.no_icon;
-        }
+        };
         switch (teamname) { //This is the set of icons that are currently in the app. Feel free to find and add more
             //as you go.
             case "Arsenal London FC":
@@ -102,10 +105,14 @@ public class Utilities {
     }
 
     public static String getFriendlyDate(String date){
-        String[] months = {null, "January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"};
+        String[] months = Resources.getSystem().getStringArray(R.array.months);
+
+        // Format of date is "yyyy-MM-dd"
         int monthNumber = Integer.parseInt(date.substring(5, 7));
-        return months[monthNumber] + " " + date.substring(8);
+
+        // Array starts at zero index, but months start at 1, so we shift one backwards
+        // to read the array properly.
+        return months[monthNumber - 1] + " " + date.substring(8);
 
     }
 

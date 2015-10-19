@@ -22,7 +22,7 @@
             android:paddingStart="120dp"
             android:paddingRight="120dp"
             android:paddingEnd="120dp"
-            android:contentDescription="@string/share_text"
+            android:contentDescription="@string/accessibility_share_button"
             android:text="@string/share_text"
         />
     </FrameLayout>

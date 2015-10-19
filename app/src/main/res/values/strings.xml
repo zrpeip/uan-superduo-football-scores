@@ -3,7 +3,7 @@
 
     <!-- General app text for the ActionBar, views, etc. -->
     <string name="app_name">Football Scores</string>
-    <string name="api_key" translatable="false">3f369ec095a740df863e730db2ea2f1e</string>
+    <string name="api_key" translatable="false"></string>
     <string name="accessibility_share_button">Share this match information!</string>
     <string name="share_text">Share</string>
     <string name="action_settings">Settings</string>
@@ -45,8 +45,6 @@
     <string name="west_bromwich_albion">West Bromwich Albion</string>
     <string name="sunderland_afc">Sunderland AFC</string>
     <string name="stoke_city_fc">Stoke City FC</string>
-
-
 
     <!-- Football terminology and dummy data for off-season -->
     <string name="matchday_text">Match day</string>

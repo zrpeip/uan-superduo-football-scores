@@ -105,15 +105,10 @@ public class Utilities {
     }
 
     public static String getFriendlyDate(String date){
-        String[] months = Resources.getSystem().getStringArray(R.array.months);
-
-        // Format of date is "yyyy-MM-dd"
+        String[] months = {null, "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"};
         int monthNumber = Integer.parseInt(date.substring(5, 7));
-
-        // Array starts at zero index, but months start at 1, so we shift one backwards
-        // to read the array properly.
-        return months[monthNumber - 1] + " " + date.substring(8);
-
+        return months[monthNumber] + " " + date.substring(8);
     }
 
     public static String[] getRecentAndUpcomingMatchDates(){
